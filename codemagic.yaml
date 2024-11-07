@@ -36,13 +36,7 @@ workflows:
         script: |
           echo "Resposta capturada do Cyberark: $RESPONSE_CYBERARK"
 
-      - name: Testando endpoints
-        script: |
-          curl -X POST http://127.0.0.1:5000/base/veracode/
-          curl -X POST http://127.0.0.1:5000/base/browserstack/
-          curl -X GET http://127.0.0.1:5000/base/cyberark/chave
-
-
+  
       - name: Upload para Veracode
         script: |
           # Instalação do Veracode CLI se necessário
