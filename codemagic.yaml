@@ -42,6 +42,21 @@ workflows:
           curl -X POST http://127.0.0.1:5000/base/browserstack/
           curl -X GET http://127.0.0.1:5000/base/cyberark/chave
 
+
+      - name: Upload para Veracode
+        script: |
+          # Instalação do Veracode CLI se necessário
+          if ! command -v veracode &> /dev/null; then
+            brew install veracode
+          fi
+
+          # Upload do APK para Veracode
+          veracode -action upload -file build/app/outputs/flutter-apk/app-release.apk -appname "SeuAppAndroid" -username ${VERACODE_API_ID} -password ${VERACODE_API_KEY}
+
+          # Upload do IPA para Veracode
+          veracode -action upload -file build/ios/ipa/Release-iphoneos/app-release.ipa -appname "SeuAppiOS" -username ${VERACODE_API_ID} -password ${VERACODE_API_KEY}
+
+
   #publishing:
   #  webhooks:
   #    - url: http://127.0.0.1:5000/base/webhook/
